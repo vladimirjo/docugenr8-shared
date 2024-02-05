@@ -28,35 +28,65 @@ class DtoTextArea:
         self.y = y
         self.width = width
         self.height = height
-        self.paragraphs: list
+        self.paragraphs: list[DtoParagraph] = []
+        self.fragments: list[DtoFragment] = []
 
 
 class DtoParagraph:
     def __init__(
         self,
+        x: float,
+        y: float,
         width: float,
         height: float,
-        line_height_ratio: float,
-        tab_size: float,
-        first_line_indent: float,
-        hanging_indent: float,
-        left_indent: float,
-        right_indent: float,
-        space_before: float,
-        space_after: float,
     ) -> None:
+        self.x = x
+        self.y = y
         self.width = width
         self.height = height
-        self.line_height_ratio = line_height_ratio
-        self.tab_size = tab_size
-        self.first_line_indent = first_line_indent
-        self.hanging_indent = hanging_indent
-        self.left_indent = left_indent
-        self.right_indent = right_indent
-        self.space_before = space_before
-        self.space_after = space_after
-        self.fragments: list[DtoFragment]
+        self.chars: str = ""
+        self.line_height_ratio: float = 0.0
+        self.tab_size: float = 0.0
+        self.first_line_indent: float = 0.0
+        self.hanging_indent: float = 0.0
+        self.left_indent: float = 0.0
+        self.right_indent: float = 0.0
+        self.space_before: float = 0.0
+        self.space_after: float = 0.0
+        self.text_lines: list[DtoTextLine] = []
+        self.fragments: list[DtoFragment] = []
 
+class DtoTextLine:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+    ) -> None:
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.baseline: float = 0.0
+        self.space_after: float = 0.0
+        self.words: list[DtoWord] = []
+        self.fragments: list[DtoFragment] = []
+
+class DtoWord:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+    ) -> None:
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.baseline: float = 0.0
+        self.fragments: list[DtoFragment] = []
 
 class DtoFragment:
     def __init__(
@@ -65,18 +95,13 @@ class DtoFragment:
         y: float,
         width: float,
         height: float,
-        baseline: float,
-        chars: str,
-        font_name: str,
-        font_size: float,
-        font_color: tuple[int, int, int],
     ) -> None:
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.baseline = baseline
-        self.chars = chars
-        self.font_name = font_name
-        self.font_size = font_size
-        self.font_color = font_color
+        self.baseline: float = 0.0
+        self.chars: str = ""
+        self.font_name: str = ""
+        self.font_size: float = 0.0
+        self.font_color: tuple[int, int, int] = (0, 0, 0)
