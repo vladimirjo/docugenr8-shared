@@ -1,19 +1,28 @@
-class DataTransferObject:
+class Dto:
     def __init__(self) -> None:
-        self.pages: list[DtoPageData] = []
-        self.fonts: list[DtoFontData] = []
+        self.pages: list[DtoPage] = []
+        self.fonts: list[DtoFont] = []
         # self.images: list[ImageData] = []
 
 
-class DtoFontData:
-    def __init__(self) -> None:
-        self.name: str
-        self.raw_data: bytes
+class DtoFont:
+    def __init__(
+        self,
+        name: str,
+        font_raw_data: bytes) -> None:
+        self.name = name
+        self.raw_data = font_raw_data
 
 
-class DtoPageData:
-    def __init__(self) -> None:
-        self.contents: list
+class DtoPage:
+    def __init__(
+        self,
+        width: float,
+        height: float
+        ) -> None:
+        self.width = width
+        self.height = height
+        self.contents: list[object] = []
 
 
 class DtoTextArea:
@@ -28,6 +37,8 @@ class DtoTextArea:
         self.y = y
         self.width = width
         self.height = height
+        self.height_empty_space: float = 0.0
+        self.v_align: str = ""
         self.paragraphs: list[DtoParagraph] = []
         self.fragments: list[DtoFragment] = []
 
@@ -37,13 +48,14 @@ class DtoParagraph:
         self,
         x: float,
         y: float,
-        width: float,
-        height: float,
+        text_area: DtoTextArea
     ) -> None:
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.text_area = text_area
+        self.width: float = 0.0
+        self.height: float = 0.0
+        self.h_align: str = ""
         self.chars: str = ""
         self.line_height_ratio: float = 0.0
         self.tab_size: float = 0.0
@@ -53,6 +65,7 @@ class DtoParagraph:
         self.right_indent: float = 0.0
         self.space_before: float = 0.0
         self.space_after: float = 0.0
+        self.num_of_lines: int = 0
         self.text_lines: list[DtoTextLine] = []
         self.fragments: list[DtoFragment] = []
 
@@ -61,15 +74,18 @@ class DtoTextLine:
         self,
         x: float,
         y: float,
-        width: float,
-        height: float,
+        paragraph: DtoParagraph,
+        justify_padding_after: float,
     ) -> None:
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.paragraph = paragraph
+        self.justify_padding_after = justify_padding_after
+        self.width: float = 0.0
+        self.height: float = 0.0
         self.baseline: float = 0.0
         self.space_after: float = 0.0
+        self.paragraph_h_align: str = ""
         self.words: list[DtoWord] = []
         self.fragments: list[DtoFragment] = []
 
@@ -78,14 +94,15 @@ class DtoWord:
         self,
         x: float,
         y: float,
-        width: float,
-        height: float,
+        text_line: DtoTextLine
     ) -> None:
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.text_line = text_line
+        self.width: float = 0.0
+        self.height: float = 0.0
         self.baseline: float = 0.0
+        self.justify_padding_after: float = 0.0
         self.fragments: list[DtoFragment] = []
 
 class DtoFragment:
@@ -93,13 +110,13 @@ class DtoFragment:
         self,
         x: float,
         y: float,
-        width: float,
-        height: float,
+        word: DtoWord,
     ) -> None:
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.word = word
+        self.width: float = 0.0
+        self.height: float = 0.0
         self.baseline: float = 0.0
         self.chars: str = ""
         self.font_name: str = ""
