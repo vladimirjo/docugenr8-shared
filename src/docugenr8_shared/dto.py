@@ -102,7 +102,7 @@ class DtoWord:
         self.width: float = 0.0
         self.height: float = 0.0
         self.baseline: float = 0.0
-        self.justify_padding_after: float = 0.0
+        self.justify_space: float = 0.0
         self.fragments: list[DtoFragment] = []
 
 class DtoFragment:
