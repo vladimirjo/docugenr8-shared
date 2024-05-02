@@ -1,6 +1,7 @@
 # some predefined colors to use
 
-class MaterialColors():
+
+class MaterialColors:
     Red50 = (255, 235, 238)
     Red100 = (255, 205, 210)
     Red200 = (239, 154, 154)
@@ -258,7 +259,8 @@ class MaterialColors():
     Black = (0, 0, 0)
     White = (255, 255, 255)
 
-class CssColors():
+
+class CssColors:
     AliceBlue = (240, 248, 255)
     AntiqueWhite = (250, 235, 215)
     Aqua = (0, 255, 255)
@@ -399,6 +401,7 @@ class CssColors():
     Yellow = (255, 255, 0)
     YellowGreen = (154, 205, 50)
 
+
 def hex_to_rgb(color: str) -> tuple[int, int, int]:
     if color[0] == "#":
         r = color_value_in_range(int(color[1:3], 16))
@@ -407,10 +410,13 @@ def hex_to_rgb(color: str) -> tuple[int, int, int]:
         return (r, g, b)
     raise ValueError(
         f"Invalid value {color}.\n"
-        "Hex value must begynn with # and be 6 characters long.")
+        "Hex value must begynn with # and be 6 characters long."
+    )
+
 
 def color_value_in_range(color_value: int):
     if color_value >= 0 and color_value <= 256:
         return color_value
     raise ValueError(
-        f"Invalid value {color_value}.\nValues for colors must be in range 0 - 255.")
+        f"Invalid value {color_value}.\nValues for colors must be in range 0 - 255."
+    )

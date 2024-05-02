@@ -6,20 +6,13 @@ class Dto:
 
 
 class DtoFont:
-    def __init__(
-        self,
-        name: str,
-        font_raw_data: bytes) -> None:
+    def __init__(self, name: str, font_raw_data: bytes) -> None:
         self.name = name
         self.raw_data = font_raw_data
 
 
 class DtoPage:
-    def __init__(
-        self,
-        width: float,
-        height: float
-        ) -> None:
+    def __init__(self, width: float, height: float) -> None:
         self.width = width
         self.height = height
         self.contents: list[object] = []
@@ -44,12 +37,7 @@ class DtoTextArea:
 
 
 class DtoParagraph:
-    def __init__(
-        self,
-        x: float,
-        y: float,
-        text_area: DtoTextArea
-    ) -> None:
+    def __init__(self, x: float, y: float, text_area: DtoTextArea) -> None:
         self.x = x
         self.y = y
         self.text_area = text_area
@@ -68,6 +56,7 @@ class DtoParagraph:
         self.num_of_lines: int = 0
         self.textlines: list[DtoTextLine] = []
         self.fragments: list[DtoFragment] = []
+
 
 class DtoTextLine:
     def __init__(
@@ -89,13 +78,9 @@ class DtoTextLine:
         self.words: list[DtoWord] = []
         self.fragments: list[DtoFragment] = []
 
+
 class DtoWord:
-    def __init__(
-        self,
-        x: float,
-        y: float,
-        textline: DtoTextLine
-    ) -> None:
+    def __init__(self, x: float, y: float, textline: DtoTextLine) -> None:
         self.x = x
         self.y = y
         self.textline = textline
@@ -104,6 +89,7 @@ class DtoWord:
         self.baseline: float = 0.0
         self.justify_space: float = 0.0
         self.fragments: list[DtoFragment] = []
+
 
 class DtoFragment:
     def __init__(
