@@ -66,7 +66,7 @@ class DtoParagraph:
         self.space_before: float = 0.0
         self.space_after: float = 0.0
         self.num_of_lines: int = 0
-        self.text_lines: list[DtoTextLine] = []
+        self.textlines: list[DtoTextLine] = []
         self.fragments: list[DtoFragment] = []
 
 class DtoTextLine:
@@ -94,11 +94,11 @@ class DtoWord:
         self,
         x: float,
         y: float,
-        text_line: DtoTextLine
+        textline: DtoTextLine
     ) -> None:
         self.x = x
         self.y = y
-        self.text_line = text_line
+        self.textline = textline
         self.width: float = 0.0
         self.height: float = 0.0
         self.baseline: float = 0.0
