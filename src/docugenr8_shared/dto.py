@@ -18,6 +18,25 @@ class DtoPage:
         self.contents: list[object] = []
 
 
+class DtoTextBox:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+    ) -> None:
+        self._x = x
+        self._y = y
+        self._width = width
+        self._height = height
+        self._fill_color: None | tuple[int, int, int] = None
+        self._line_color: None | tuple[int, int, int] = None
+        self._line_width: float = 1.0
+        self._line_pattern: tuple[int, int, int, int, int] = (0, 0, 0, 0, 0)
+        self._text_area: None | DtoTextArea = None
+
+
 class DtoTextArea:
     def __init__(
         self,
