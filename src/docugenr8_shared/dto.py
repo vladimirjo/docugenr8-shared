@@ -127,3 +127,68 @@ class DtoFragment:
         self.font_name: str = ""
         self.font_size: float = 0.0
         self.font_color: tuple[int, int, int] = (0, 0, 0)
+
+
+class DtoBezier:
+    def __init__(
+        self,
+        cp1_x: float,
+        cp1_y: float,
+        cp2_x: float,
+        cp2_y: float,
+        endp_x: float,
+        endp_y: float,
+    ) -> None:
+        self._cp1_x = cp1_x
+        self._cp1_y = cp1_y
+        self._cp2_x = cp2_x
+        self._cp2_y = cp2_y
+        self._endp_x = endp_x
+        self._endp_y = endp_y
+
+
+class DtoPoint:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+    ) -> None:
+        self._x = x
+        self._y = y
+
+
+class DtoCurve:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        fill_color: tuple[int, int, int] | None = None,
+        line_color: tuple[int, int, int] | None = (0, 0, 0),
+        line_width: float = 1.0,
+        line_pattern: tuple[int, int, int, int, int] = (0, 0, 0, 0, 0),
+        closed: bool = False,
+    ) -> None:
+        self._fill_color = fill_color
+        self._line_color = line_color
+        self._line_width = line_width
+        self._line_pattern = line_pattern
+        self._closed = closed
+        self._path: list[DtoPoint | DtoBezier] = [DtoPoint(x, y)]
+
+    def add_point(
+        self,
+        x: float,
+        y: float,
+    ) -> None:
+        self._path.append(DtoPoint(x, y))
+
+    def add_bezier(
+        self,
+        cp1_x: float,
+        cp1_y: float,
+        cp2_x: float,
+        cp2_y: float,
+        endp_x: float,
+        endp_y: float,
+    ) -> None:
+        self._path.append(DtoBezier(cp1_x, cp1_y, cp2_x, cp2_y, endp_x, endp_y))
