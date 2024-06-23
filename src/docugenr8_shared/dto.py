@@ -175,20 +175,82 @@ class DtoCurve:
         self._closed = closed
         self._path: list[DtoPoint | DtoBezier] = [DtoPoint(x, y)]
 
-    def add_point(
+
+class DtoRectangle:
+    def __init__(
         self,
         x: float,
         y: float,
+        width: float,
+        height: float,
+        rotate: float,
+        skew: float,
+        rounded_corner_top_left: float,
+        rounded_corner_top_right: float,
+        rounded_corner_bottom_left: float,
+        rounded_corner_bottom_right: float,
+        fill_color: tuple[int, int, int] | None,
+        line_color: tuple[int, int, int] | None,
+        line_width: float,
+        line_pattern: tuple[int, int, int, int, int],
     ) -> None:
-        self._path.append(DtoPoint(x, y))
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.rotate = rotate
+        self.skew = skew
+        self.rounded_corner_top_left = rounded_corner_top_left
+        self.rounded_corner_top_right = rounded_corner_top_right
+        self.rounded_corner_bottom_left = rounded_corner_bottom_left
+        self.rounded_corner_bottom_right = rounded_corner_bottom_right
+        self.fill_color = fill_color
+        self.line_color = line_color
+        self.line_width = line_width
+        self.line_pattern = line_pattern
 
-    def add_bezier(
+
+class DtoArc:
+    def __init__(
         self,
-        cp1_x: float,
-        cp1_y: float,
-        cp2_x: float,
-        cp2_y: float,
-        endp_x: float,
-        endp_y: float,
+        x1: float,
+        y1: float,
+        x2: float,
+        y2: float,
+        line_color: tuple[int, int, int] | None,
+        line_width: float,
+        line_pattern: tuple[int, int, int, int, int],
     ) -> None:
-        self._path.append(DtoBezier(cp1_x, cp1_y, cp2_x, cp2_y, endp_x, endp_y))
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self._line_color = line_color
+        self._line_width = line_width
+        self._line_pattern = line_pattern
+
+
+class DtoEllipse:
+    def __init__(
+        self,
+        x: float,
+        y: float,
+        width: float,
+        height: float,
+        rotate: float,
+        skew: float,
+        fill_color: tuple[int, int, int] | None,
+        line_color: tuple[int, int, int] | None,
+        line_width: float,
+        line_pattern: tuple[int, int, int, int, int],
+    ) -> None:
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.rotate = rotate
+        self.skew = skew
+        self.fill_color = fill_color
+        self.line_color = line_color
+        self.line_width = line_width
+        self.line_pattern = line_pattern
