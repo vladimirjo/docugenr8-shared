@@ -139,12 +139,12 @@ class DtoBezier:
         endp_x: float,
         endp_y: float,
     ) -> None:
-        self._cp1_x = cp1_x
-        self._cp1_y = cp1_y
-        self._cp2_x = cp2_x
-        self._cp2_y = cp2_y
-        self._endp_x = endp_x
-        self._endp_y = endp_y
+        self.cp1_x = cp1_x
+        self.cp1_y = cp1_y
+        self.cp2_x = cp2_x
+        self.cp2_y = cp2_y
+        self.endp_x = endp_x
+        self.endp_y = endp_y
 
 
 class DtoPoint:
@@ -153,8 +153,8 @@ class DtoPoint:
         x: float,
         y: float,
     ) -> None:
-        self._x = x
-        self._y = y
+        self.x = x
+        self.y = y
 
 
 class DtoCurve:
@@ -162,18 +162,19 @@ class DtoCurve:
         self,
         x: float,
         y: float,
-        fill_color: tuple[int, int, int] | None = None,
-        line_color: tuple[int, int, int] | None = (0, 0, 0),
-        line_width: float = 1.0,
-        line_pattern: tuple[int, int, int, int, int] = (0, 0, 0, 0, 0),
-        closed: bool = False,
+        fill_color: tuple[int, int, int] | None,
+        line_color: tuple[int, int, int] | None,
+        line_width: float,
+        line_pattern: tuple[int, int, int, int, int],
+        closed: bool,
     ) -> None:
-        self._fill_color = fill_color
-        self._line_color = line_color
-        self._line_width = line_width
-        self._line_pattern = line_pattern
-        self._closed = closed
-        self._path: list[DtoPoint | DtoBezier] = [DtoPoint(x, y)]
+        self.fill_color = fill_color
+        self.line_color = line_color
+        self.line_width = line_width
+        self.line_pattern = line_pattern
+        self.closed = closed
+        self.path: list[DtoPoint | DtoBezier] = [DtoPoint(x, y)]
+        self.transformations: list[DtoRotation | DtoSkew] = []
 
 
 class DtoRectangle:
@@ -183,8 +184,6 @@ class DtoRectangle:
         y: float,
         width: float,
         height: float,
-        rotate: float,
-        skew: float,
         rounded_corner_top_left: float,
         rounded_corner_top_right: float,
         rounded_corner_bottom_left: float,
@@ -198,8 +197,6 @@ class DtoRectangle:
         self.y = y
         self.width = width
         self.height = height
-        self.rotate = rotate
-        self.skew = skew
         self.rounded_corner_top_left = rounded_corner_top_left
         self.rounded_corner_top_right = rounded_corner_top_right
         self.rounded_corner_bottom_left = rounded_corner_bottom_left
@@ -208,6 +205,7 @@ class DtoRectangle:
         self.line_color = line_color
         self.line_width = line_width
         self.line_pattern = line_pattern
+        self.transformations: list[DtoRotation | DtoSkew] = []
 
 
 class DtoArc:
@@ -225,9 +223,10 @@ class DtoArc:
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-        self._line_color = line_color
-        self._line_width = line_width
-        self._line_pattern = line_pattern
+        self.line_color = line_color
+        self.line_width = line_width
+        self.line_pattern = line_pattern
+        self.transformations: list[DtoRotation | DtoSkew] = []
 
 
 class DtoEllipse:
@@ -237,8 +236,6 @@ class DtoEllipse:
         y: float,
         width: float,
         height: float,
-        rotate: float,
-        skew: float,
         fill_color: tuple[int, int, int] | None,
         line_color: tuple[int, int, int] | None,
         line_width: float,
@@ -248,9 +245,29 @@ class DtoEllipse:
         self.y = y
         self.width = width
         self.height = height
-        self.rotate = rotate
-        self.skew = skew
         self.fill_color = fill_color
         self.line_color = line_color
         self.line_width = line_width
         self.line_pattern = line_pattern
+        self.transformations: list[DtoRotation | DtoSkew] = []
+
+
+class DtoRotation:
+    def __init__(self, x_origin: float, y_origin: float, degrees: float) -> None:
+        self.x_origin = x_origin
+        self.y_origin = y_origin
+        self.degrees = degrees
+
+
+class DtoSkew:
+    def __init__(
+        self,
+        x_origin: float,
+        y_origin: float,
+        vertical_degrees: float,
+        horizontal_degrees: float,
+    ) -> None:
+        self.x_origin = x_origin
+        self.y_origin = y_origin
+        self.vertical_degrees = vertical_degrees
+        self.horizontal_degrees = horizontal_degrees
